@@ -18,7 +18,51 @@ const Login = () => {
           <div className="p-6 md:p-20">
             {isRegister ? (
               // code for login
-              <div>Register</div>
+              <>
+                {" "}
+                {/* Top Content */}
+                <h2 className="font-rubik mb-5 text-4xl font-bold">Register</h2>
+                <p className="max-w-sm mb-5 font-sans font-light text-gray-600">
+                  Create your account with your name, email, and password.
+                </p>
+                {/* first name and last name */}
+                <div className="flex flex-col justify-between md:flex-row md:justify-between">
+                  <input
+                    type="text"
+                    className=" w-full p-3 border m-2 border-gray-300 rounded-md placeholder:font-sans placeholder:font-light"
+                    placeholder="Enter your first name"
+                  />
+                  <input
+                    type="text"
+                    className=" w-full p-3 border m-2 border-gray-300 rounded-md placeholder:font-sans placeholder:font-light"
+                    placeholder="Enter your last name"
+                  />
+                </div>
+                <input
+                  type="text"
+                  className=" w-full p-3 border m-2 border-gray-300 rounded-md placeholder:font-sans placeholder:font-light"
+                  placeholder="Enter your email address"
+                />
+                <input
+                  type="text"
+                  className=" w-full p-3 border m-2 border-gray-300 rounded-md placeholder:font-sans placeholder:font-light"
+                  placeholder="Enter your password"
+                />
+                {/* Border */}
+                <div className="mt-12 border-b border-b-gray-300"></div>
+                {/* bottom content */}
+                <div className="flex flex-col justify-between items-center mt-6 space-y-6 md:flex-row md:space-y-0">
+                  <button class="w-full md:w-40 flex justify-center items-center p-6 space-x-4 font-sans font-bold text-white rounded-md px-9 bg-cyan-700 shadow-cyan-100 hover:bg-opacity-90 shadow-sm hover:shadow-lg border transition hover:-translate-y-0.5 duration-150">
+                    <span>Register</span>
+                  </button>
+                  <div
+                    onClick={() => setIsRegister(false)}
+                    className=" text-cyan-700 hover:cursor-pointer"
+                  >
+                    Login to your account
+                  </div>
+                </div>{" "}
+              </>
             ) : (
               <>
                 {" "}
@@ -45,8 +89,8 @@ const Login = () => {
                     <span>Login</span>
                   </button>
                   <div
-                    onClick={() => (isRegister = true)}
-                    className=" text-cyan-700"
+                    onClick={() => setIsRegister(true)}
+                    className=" text-cyan-700 hover:cursor-pointer"
                   >
                     Create Account
                   </div>
