@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import { RiAccountCircleFill } from "react-icons/ri";
-import { Menu } from "@headlessui/react";
+import { RiAccountCircleFill, RiLogoutBoxRFill } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 const HomePage = () => {
-  //   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("user");
+    navigate("/");
+    window.location.reload();
+  };
   return (
     <div className="w-full h-screen bg-teal-50">
       {/* NavBar */}
@@ -10,7 +16,30 @@ const HomePage = () => {
         <div className="md:block md:text-left m-auto p-5 font-bold text-6xl text-teal-700 ">
           SimplyToDo.
         </div>
-        <Menu>
+        <div className="flex space-x-1 m-auto p-5 font-bold text-5xl text-teal-700 ">
+          <RiAccountCircleFill
+            className="hover:cursor-pointer"
+            onClick={() => {
+              navigate("/profile");
+            }}
+          />
+          <RiLogoutBoxRFill
+            className="hover:cursor-pointer"
+            onClick={() => {
+              logout();
+            }}
+          />
+        </div>
+      </div>
+      {/* End of NavBar */}
+    </div>
+  );
+};
+
+export default HomePage;
+
+{
+  /* <Menu>
           <Menu.Button className=" m-auto p-5 font-bold text-5xl text-teal-700  ">
             <RiAccountCircleFill className="hover:cursor-pointer" />
           </Menu.Button>
@@ -30,11 +59,5 @@ const HomePage = () => {
               )}
             </Menu.Item>
           </Menu.Items>
-        </Menu>
-      </div>
-      {/* End of NavBar */}
-    </div>
-  );
-};
-
-export default HomePage;
+        </Menu> */
+}
