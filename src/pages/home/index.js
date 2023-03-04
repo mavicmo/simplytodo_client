@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { RiAccountCircleFill, RiLogoutBoxRFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 const HomePage = () => {
+  //   const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
 
   const logout = () => {
@@ -11,6 +12,7 @@ const HomePage = () => {
   };
   return (
     <div className="w-full h-screen bg-teal-50">
+      {/* {isMobile ? }   */}
       {/* NavBar */}
       <div className="flex flex-col space-y-0 bg-white shadow-2xl rounded-2xl  md:flex-row md:space-y-0 md:m-0 md:justify-between md:items-center">
         <div className="md:block md:text-left m-auto p-5 font-bold text-6xl text-teal-700 ">
@@ -37,11 +39,15 @@ const HomePage = () => {
 
       <div className="flex flex-col">
         {/* Name and Input */}
-        <div className="">
+        <div className="flex flex-col space-y-4 m-6">
           {/* name */}
           <div>Hello, Name</div>
           {/* input */}
-          <div>asdf</div>
+          <div className="flex justify-center space-x-2">
+            <div>Input</div>
+            <div>Plus</div>
+            <div>Trash</div>
+          </div>
         </div>
       </div>
 
