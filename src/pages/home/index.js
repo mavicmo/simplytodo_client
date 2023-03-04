@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { RiAccountCircleFill, RiLogoutBoxRFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 const HomePage = () => {
   //   const [isMobile, setIsMobile] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({ default: { name: "", completed: false } });
   const navigate = useNavigate();
 
   const logout = () => {
@@ -10,11 +17,15 @@ const HomePage = () => {
     navigate("/");
     window.location.reload();
   };
+
+  const formToDoSubmit = async (data) => {
+    console.log(data);
+  };
   return (
-    <div className="w-full h-screen bg-teal-50">
+    <div className="Container w-full h-screen bg-teal-50 md:flex md:flex-col md:items-center">
       {/* {isMobile ? }   */}
       {/* NavBar */}
-      <div className="flex flex-col space-y-0 bg-white shadow-2xl rounded-2xl  md:flex-row md:space-y-0 md:m-0 md:justify-between md:items-center">
+      <div className="flex flex-col space-y-0 bg-white shadow-2xl rounded-2xl  md:flex-row md:w-full md:space-y-0 md:m-0 md:justify-between md:items-center">
         <div className="md:block md:text-left m-auto p-5 font-bold text-6xl text-teal-700 ">
           SimplyToDo.
         </div>
@@ -37,15 +48,29 @@ const HomePage = () => {
 
       {/* Mian Body */}
 
-      <div className="flex flex-col">
+      {/* <div className="flex flex-col md:items-center md:flex md:justify-center md:w-full md:p-0 md:m-0"> */}
+      <div className="container m-6 p-6">
         {/* Name and Input */}
-        <div className="flex flex-col space-y-4 m-6">
+        <div className="flex flex-col space-y-4 m-6 p-6 md:flex md:flex-col md:m-6 md:p-6 md:items-center md:space-y-4 ">
           {/* name */}
-          <div>Hello, Name</div>
+          <div className="text-2xl w-full font-Rubik font-medium">
+            Hello, Name
+          </div>
           {/* input */}
-          <div className="flex justify-center space-x-2">
-            <div>Input</div>
-            <div>Plus</div>
+          <div className="">
+            <form
+              onSubmit={handleSubmit((data) => {
+                formToDoSubmit(data);
+              })}
+            >
+              <input
+                type="text"
+                {...register("name", { required: "Enter a ToDo Task." })}
+                className={`w-full h-full p-3 border  border-gray-300 rounded-xl h-50`}
+              />
+              <div>Plus</div>
+            </form>
+
             <div>Trash</div>
           </div>
         </div>
