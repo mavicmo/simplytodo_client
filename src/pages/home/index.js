@@ -4,7 +4,9 @@ import {
   RiLogoutBoxRFill,
   RiAddFill,
 } from "react-icons/ri";
-import { TbTrash } from "react-icons/tb";
+import { TbTrash, TbListNumbers } from "react-icons/tb";
+import { TfiList } from "react-icons/tfi";
+import { MdOutlineCheckCircleOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 const HomePage = () => {
@@ -80,6 +82,27 @@ const HomePage = () => {
               </div>
             </form>
           </div>
+          {/* End of Name and Input */}
+          {/* Start of Filter Buttons */}
+          <div className="flex flex-col space-x-0 md:w-full md:flex md:flex-row">
+            <div className="border border-slate-600 text-center w-full bg-green-50 rounded-xl hover:bg-green-200 hover:cursor-pointer m-0 p-1 md:p-10 md:w-full md:m-0">
+              <div className="flex items-center justify-center space-x-1 text-2xl font-bold">
+                <TbListNumbers />
+                ToDo
+              </div>
+            </div>
+            <div className="border border-slate-600 text-center w-full bg-green-50 rounded-xl hover:bg-green-200 hover:cursor-pointer m-0 p-1 md:p-10 md:w-full md:m-0">
+              <div className="flex items-center justify-center space-x-1 text-2xl font-bold">
+                <MdOutlineCheckCircleOutline /> Completed
+              </div>
+            </div>
+            <div className="border border-slate-600 text-center w-full bg-green-50 rounded-xl hover:bg-green-200 hover:cursor-pointer m-0 p-1 md:p-10 md:w-full md:m-0">
+              <div className="flex items-center justify-center space-x-1 text-2xl font-bold">
+                <TfiList /> All
+              </div>
+            </div>
+          </div>
+          {/* End of Filter Buttons */}
         </div>
       </div>
 
