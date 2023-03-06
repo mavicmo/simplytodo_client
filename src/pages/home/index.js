@@ -6,6 +6,7 @@ import {
 } from "react-icons/ri";
 import { TbTrash, TbListNumbers } from "react-icons/tb";
 import { TfiList } from "react-icons/tfi";
+import { IoIosRadioButtonOff, IoIosRadioButtonOn } from "react-icons/io";
 import { MdOutlineCheckCircleOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -103,6 +104,35 @@ const HomePage = () => {
             </div>
           </div>
           {/* End of Filter Buttons */}
+          {/* Start of ToDo List */}
+
+          <div className="p-3 w-full flex flex-col items-center ">
+            <div className="flex w-full justify-between md:flex md:flex-row md:space-x-1 text-3xl">
+              <div className="">
+                {" "}
+                <IoIosRadioButtonOff className="" />
+                <span>Take out trashasdfasdfas </span>
+              </div>
+              <div>
+                <RiAddFill className="" />
+                <TbTrash className="" />
+              </div>
+            </div>
+            <div className="flex md:flex md:flex-row md:space-x-1 text-3xl">
+              <IoIosRadioButtonOff className="" />
+              <span>Take out trash</span>
+              <RiAddFill className="" />
+              <TbTrash className="" />
+            </div>
+            <div className="flex md:flex md:flex-row md:space-x-1 text-3xl">
+              <IoIosRadioButtonOff className="" />
+              <span>Take out trash</span>
+              <RiAddFill className="" />
+              <TbTrash className="" />
+            </div>
+          </div>
+
+          {/* End of ToDo List */}
         </div>
       </div>
 
