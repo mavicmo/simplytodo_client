@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { RiAccountCircleFill, RiLogoutBoxRFill } from "react-icons/ri";
+import {
+  RiAccountCircleFill,
+  RiLogoutBoxRFill,
+  RiAddFill,
+} from "react-icons/ri";
+import { TbTrash } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 const HomePage = () => {
@@ -54,24 +59,26 @@ const HomePage = () => {
         <div className="flex flex-col space-y-4 m-6 p-6 md:flex md:flex-col md:m-6 md:p-6 md:items-center md:space-y-4 ">
           {/* name */}
           <div className="text-2xl w-full font-Rubik font-medium">
-            Hello, Name
+            Hello, Name!
           </div>
           {/* input */}
-          <div className="">
+          <div className="p-3 w-full">
             <form
               onSubmit={handleSubmit((data) => {
                 formToDoSubmit(data);
               })}
             >
-              <input
-                type="text"
-                {...register("name", { required: "Enter a ToDo Task." })}
-                className={`w-full h-full p-3 border  border-gray-300 rounded-xl h-50`}
-              />
-              <div>Plus</div>
+              <div className="flex md:flex md:flex-row md:space-x-1">
+                <input
+                  type="text"
+                  {...register("name", { required: "Enter a ToDo Task." })}
+                  className={`w-full h-full p-2 border  border-gray-300 rounded-xl h-50 md:w-full`}
+                  placeholder="Enter your ToDo"
+                />
+                <RiAddFill className="text-3xl" />
+                <TbTrash className="text-3xl" />
+              </div>
             </form>
-
-            <div>Trash</div>
           </div>
         </div>
       </div>
@@ -82,6 +89,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-
-{
-}
