@@ -1,3 +1,4 @@
+import ToDoList from "../../components/ToDoList";
 import React, { useState } from "react";
 import {
   RiAccountCircleFill,
@@ -6,7 +7,7 @@ import {
 } from "react-icons/ri";
 import { TbTrash, TbListNumbers } from "react-icons/tb";
 import { TfiList } from "react-icons/tfi";
-import { IoIosRadioButtonOff, IoIosRadioButtonOn } from "react-icons/io";
+
 import {
   MdOutlineCheckCircleOutline,
   MdOutlineModeEditOutline,
@@ -19,7 +20,6 @@ import axios from "axios";
 const URL = "http://localhost:3005/";
 
 const HomePage = () => {
-  //   const [isMobile, setIsMobile] = useState(false);
   const [toDoList, setToDoList] = useState("");
   const {
     register,
@@ -55,6 +55,7 @@ const HomePage = () => {
         },
       });
       setToDoList(res.data.toDoList);
+      reset();
       console.log(res);
     } catch (error) {
       console.log(error);
@@ -62,7 +63,6 @@ const HomePage = () => {
   };
   return (
     <div className="Container w-full h-screen bg-teal-50 md:flex md:flex-col md:items-center">
-      {/* {isMobile ? }   */}
       {/* NavBar */}
       <div className="flex flex-col space-y-0 bg-white shadow-2xl rounded-2xl  md:flex-row md:w-full md:space-y-0 md:m-0 md:justify-between md:items-center">
         <div className="md:block md:text-left m-auto p-5 font-bold text-6xl text-teal-700 ">
@@ -115,7 +115,6 @@ const HomePage = () => {
                     formToDoSubmit(data);
                   })}
                 />
-                {/* <TbTrash className="text-3xl hover:cursor-pointer" /> */}
               </div>
             </form>
           </div>
@@ -141,23 +140,7 @@ const HomePage = () => {
           </div>
           {/* End of Filter Buttons */}
           {/* Start of ToDo List */}
-
-          <div className="p-3 w-full flex flex-col items-center ">
-            <div className="flex w-full justify-between md:flex md:flex-row md:space-x-1 text-3xl ">
-              <div className="flex flex-row w-full items-center space-x-2">
-                {" "}
-                <IoIosRadioButtonOff className="hover:cursor-pointer" />
-                <span className="border border-black bg-white rounded-lg p-3 w-full font-Rubik text-xl hover:bg-green-200 hover:cursor-pointer">
-                  Cook lunch{" "}
-                </span>
-              </div>
-              <div className="flex flex-row justify-end items-center">
-                <MdOutlineModeEditOutline className="hover:cursor-pointer" />
-                <TbTrash className="hover:cursor-pointer" />
-              </div>
-            </div>
-          </div>
-
+          <ToDoList />
           {/* End of ToDo List */}
         </div>
       </div>
