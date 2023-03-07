@@ -78,8 +78,8 @@ const HomePage = () => {
                   className={`w-full h-full p-2 border  border-gray-300 rounded-xl h-50 md:w-full`}
                   placeholder="Enter your ToDo"
                 />
-                <RiAddFill className="text-3xl" />
-                <TbTrash className="text-3xl" />
+                <RiAddFill className="text-3xl hover:cursor-pointer" />
+                <TbTrash className="text-3xl hover:cursor-pointer" />
               </div>
             </form>
           </div>
@@ -107,28 +107,18 @@ const HomePage = () => {
           {/* Start of ToDo List */}
 
           <div className="p-3 w-full flex flex-col items-center ">
-            <div className="flex w-full justify-between md:flex md:flex-row md:space-x-1 text-3xl">
-              <div className="">
+            <div className="flex w-full justify-between md:flex md:flex-row md:space-x-1 text-3xl ">
+              <div className="flex flex-row w-full items-center space-x-2">
                 {" "}
-                <IoIosRadioButtonOff className="" />
-                <span>Take out trashasdfasdfas </span>
+                <IoIosRadioButtonOff className="hover:cursor-pointer" />
+                <span className="border border-black bg-white rounded-lg p-3 w-full font-Rubik text-xl hover:bg-green-200 hover:cursor-pointer">
+                  Cook lunch{" "}
+                </span>
               </div>
-              <div>
-                <RiAddFill className="" />
-                <TbTrash className="" />
+              <div className="flex flex-row justify-end items-center">
+                <RiAddFill className="hover:cursor-pointer" />
+                <TbTrash className="hover:cursor-pointer" />
               </div>
-            </div>
-            <div className="flex md:flex md:flex-row md:space-x-1 text-3xl">
-              <IoIosRadioButtonOff className="" />
-              <span>Take out trash</span>
-              <RiAddFill className="" />
-              <TbTrash className="" />
-            </div>
-            <div className="flex md:flex md:flex-row md:space-x-1 text-3xl">
-              <IoIosRadioButtonOff className="" />
-              <span>Take out trash</span>
-              <RiAddFill className="" />
-              <TbTrash className="" />
             </div>
           </div>
 
