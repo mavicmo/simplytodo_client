@@ -7,11 +7,20 @@ import {
 import { TbTrash, TbListNumbers } from "react-icons/tb";
 import { TfiList } from "react-icons/tfi";
 import { IoIosRadioButtonOff, IoIosRadioButtonOn } from "react-icons/io";
-import { MdOutlineCheckCircleOutline } from "react-icons/md";
+import {
+  MdOutlineCheckCircleOutline,
+  MdOutlineModeEditOutline,
+} from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+
+// URL for the backend
+const URL = "http://localhost:3005/";
+
 const HomePage = () => {
   //   const [isMobile, setIsMobile] = useState(false);
+  const [toDoList, setToDoList] = useState("");
   const {
     register,
     handleSubmit,
@@ -20,14 +29,36 @@ const HomePage = () => {
   } = useForm({ default: { name: "", completed: false } });
   const navigate = useNavigate();
 
+  // get user
+  const User = JSON.parse(localStorage.getItem("user"));
+
+  // remove information from localStorage
   const logout = () => {
     localStorage.removeItem("user");
     navigate("/");
     window.location.reload();
   };
 
-  const formToDoSubmit = async (data) => {
-    console.log(data);
+  // Submit a ToDo to the backend
+  const formToDoSubmit = async (name) => {
+    const userId = User._id;
+    const payload = {
+      userId,
+      name,
+    };
+
+    try {
+      const res = await axios.post(URL + `todo/createtodo`, payload, {
+        headers: {
+          Authorization: `Bearer ${User.token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      setToDoList(res.data.toDoList);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="Container w-full h-screen bg-teal-50 md:flex md:flex-col md:items-center">
@@ -62,7 +93,7 @@ const HomePage = () => {
         <div className="flex flex-col space-y-4 m-6 p-6 md:flex md:flex-col md:m-6 md:p-6 md:items-center md:space-y-4 ">
           {/* name */}
           <div className="text-2xl w-full font-Rubik font-medium">
-            Hello, Name!
+            Hello, {User.firstName} {User.lastName}!
           </div>
           {/* input */}
           <div className="p-3 w-full">
@@ -78,8 +109,13 @@ const HomePage = () => {
                   className={`w-full h-full p-2 border  border-gray-300 rounded-xl h-50 md:w-full`}
                   placeholder="Enter your ToDo"
                 />
-                <RiAddFill className="text-3xl hover:cursor-pointer" />
-                <TbTrash className="text-3xl hover:cursor-pointer" />
+                <RiAddFill
+                  className="text-3xl hover:cursor-pointer"
+                  onClick={handleSubmit((data) => {
+                    formToDoSubmit(data);
+                  })}
+                />
+                {/* <TbTrash className="text-3xl hover:cursor-pointer" /> */}
               </div>
             </form>
           </div>
@@ -116,7 +152,7 @@ const HomePage = () => {
                 </span>
               </div>
               <div className="flex flex-row justify-end items-center">
-                <RiAddFill className="hover:cursor-pointer" />
+                <MdOutlineModeEditOutline className="hover:cursor-pointer" />
                 <TbTrash className="hover:cursor-pointer" />
               </div>
             </div>
