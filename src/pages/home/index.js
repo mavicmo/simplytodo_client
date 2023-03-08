@@ -1,5 +1,5 @@
 import ToDoList from "../../components/ToDoList";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   RiAccountCircleFill,
   RiLogoutBoxRFill,
@@ -20,7 +20,8 @@ import axios from "axios";
 const URL = "http://localhost:3005/";
 
 const HomePage = () => {
-  const [toDoList, setToDoList] = useState("");
+  const [listOfToDo, setlistOfToDo] = useState([]);
+  console.log(listOfToDo);
   const {
     register,
     handleSubmit,
@@ -54,13 +55,16 @@ const HomePage = () => {
           "Content-Type": "application/json",
         },
       });
-      setToDoList(res.data.toDoList);
+
+      setlistOfToDo(res.data.toDoList);
+      console.log(listOfToDo);
       reset();
-      console.log(res);
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {}, []);
   return (
     <div className="Container w-full h-screen bg-teal-50 md:flex md:flex-col md:items-center">
       {/* NavBar */}
@@ -140,7 +144,7 @@ const HomePage = () => {
           </div>
           {/* End of Filter Buttons */}
           {/* Start of ToDo List */}
-          <ToDoList />
+          <ToDoList token={User.token} listOfToDo={listOfToDo} />
           {/* End of ToDo List */}
         </div>
       </div>
