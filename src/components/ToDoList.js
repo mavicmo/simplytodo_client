@@ -1,14 +1,46 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import ToDo from "../widgets/ToDo";
 
-function ToDoList({ token, listOfToDo }) {
-  console.log(listOfToDo);
+// URL for the backend
+const URL = "http://localhost:3005/";
 
+function ToDoList({ token, userId, formToDoSubmit }) {
+  const [listOfToDo, setListOfToDo] = useState([]);
+  const [renderEffect, setRenderEffect] = useState([]);
+
+  const getListOfToDo = async () => {
+    try {
+      console.log(userId);
+      const res = await axios.get(URL + `todo/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log(`worked`);
+      setListOfToDo(res.data.toDoList);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getListOfToDo();
+  }, [formToDoSubmit, renderEffect]);
   return (
     <>
       <div className="p-3 w-full flex flex-col items-center ">
         {listOfToDo.map(({ _id, name }) => (
-          <ToDo key={_id} id={_id} name={name} token={token} />
+          <ToDo
+            key={_id}
+            id={_id}
+            name={name}
+            token={token}
+            setListOfToDo={setListOfToDo}
+            setRenderEffect={setRenderEffect}
+          />
         ))}
       </div>
     </>

@@ -5,17 +5,18 @@ import { TbTrash } from "react-icons/tb";
 import { MdOutlineModeEditOutline } from "react-icons/md";
 
 const URL = "http://localhost:3005/";
-function ToDo({ id, name, token }) {
+function ToDo({ id, name, token, setRenderEffect }) {
   // delete todo by ID
   const handleDelete = async () => {
     try {
-      await axios.delete(URL + `todo/${id}`, {
+      const res = await axios.delete(URL + `todo/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       });
-      console.log(`worked`);
+
+      setRenderEffect(res.data.newToDoList);
     } catch (error) {
       console.log(error);
     }

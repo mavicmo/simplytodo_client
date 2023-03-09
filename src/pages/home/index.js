@@ -20,8 +20,6 @@ import axios from "axios";
 const URL = "http://localhost:3005/";
 
 const HomePage = () => {
-  const [listOfToDo, setlistOfToDo] = useState([]);
-  console.log(listOfToDo);
   const {
     register,
     handleSubmit,
@@ -49,22 +47,19 @@ const HomePage = () => {
     };
 
     try {
-      const res = await axios.post(URL + `todo/createtodo`, payload, {
+      await axios.post(URL + `todo/createtodo`, payload, {
         headers: {
           Authorization: `Bearer ${User.token}`,
           "Content-Type": "application/json",
         },
       });
 
-      setlistOfToDo(res.data.toDoList);
-      console.log(listOfToDo);
       reset();
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {}, []);
   return (
     <div className="Container w-full h-screen bg-teal-50 md:flex md:flex-col md:items-center">
       {/* NavBar */}
@@ -144,7 +139,11 @@ const HomePage = () => {
           </div>
           {/* End of Filter Buttons */}
           {/* Start of ToDo List */}
-          <ToDoList token={User.token} listOfToDo={listOfToDo} />
+          <ToDoList
+            token={User.token}
+            userId={User._id}
+            formToDoSubmit={formToDoSubmit}
+          />
           {/* End of ToDo List */}
         </div>
       </div>
