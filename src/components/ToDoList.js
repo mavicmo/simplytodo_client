@@ -11,7 +11,6 @@ function ToDoList({ token, userId, formToDoSubmit }) {
 
   const getListOfToDo = async () => {
     try {
-      console.log(userId);
       const res = await axios.get(URL + `todo/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -19,7 +18,6 @@ function ToDoList({ token, userId, formToDoSubmit }) {
         },
       });
 
-      console.log(`worked`);
       setListOfToDo(res.data.toDoList);
     } catch (error) {
       console.log(error);
@@ -36,6 +34,7 @@ function ToDoList({ token, userId, formToDoSubmit }) {
           <ToDo
             key={_id}
             id={_id}
+            userId={userId}
             name={name}
             token={token}
             setListOfToDo={setListOfToDo}

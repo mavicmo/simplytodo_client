@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { IoIosRadioButtonOff, IoIosRadioButtonOn } from "react-icons/io";
 import { TbTrash } from "react-icons/tb";
 import { MdOutlineModeEditOutline } from "react-icons/md";
+import { useForm } from "react-hook-form";
 
 const URL = "http://localhost:3005/";
-function ToDo({ id, name, token, setRenderEffect }) {
+function ToDo({ id, userId, name, token, setRenderEffect }) {
+  const [isEdit, setIsEdit] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({ default: { name: "", completed: false } });
+
   // delete todo by ID
   const handleDelete = async () => {
     try {
@@ -21,18 +30,61 @@ function ToDo({ id, name, token, setRenderEffect }) {
       console.log(error);
     }
   };
+
+  const onClickEdit = () => {
+    isEdit ? setIsEdit(false) : setIsEdit(true);
+  };
+
+  const handleEdit = async (name) => {
+    const payload = {
+      userId,
+      name,
+    };
+
+    try {
+      const res = await axios.put(URL + `todo/${id}`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      setRenderEffect(res.data.toDoList);
+      setIsEdit(false);
+      reset();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <div className="flex w-full justify-between md:flex md:flex-row md:space-x-1 text-3xl ">
-        <div className="flex flex-row w-full items-center space-x-2">
+        <form
+          onSubmit={handleSubmit((data) => {
+            handleEdit(data);
+          })}
+          className="flex flex-row w-full items-center space-x-2"
+        >
           {" "}
           <IoIosRadioButtonOff className="hover:cursor-pointer" />
-          <span className="border border-black bg-white rounded-lg p-3 w-full font-Rubik text-xl hover:bg-green-200 hover:cursor-pointer">
-            {name}
-          </span>
-        </div>
+          {isEdit ? (
+            <input
+              type="text"
+              {...register("name", { required: "Enter a ToDo Task." })}
+              className={`border border-red-500 bg-white rounded-lg p-3 w-full font-Rubik text-xl hover:bg-red-50 hover:cursor-pointer`}
+              placeholder="Enter your ToDo"
+            />
+          ) : (
+            <span className="border border-black bg-white rounded-lg p-3 w-full font-Rubik text-xl hover:bg-green-200 hover:cursor-pointer">
+              {name}
+            </span>
+          )}
+        </form>
         <div className="flex flex-row justify-end items-center">
-          <MdOutlineModeEditOutline className="hover:cursor-pointer" />
+          <MdOutlineModeEditOutline
+            className="hover:cursor-pointer"
+            onClick={onClickEdit}
+          />
           <TbTrash className="hover:cursor-pointer" onClick={handleDelete} />
         </div>
       </div>
