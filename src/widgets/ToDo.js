@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 const URL = "http://localhost:3005/";
 function ToDo({ id, userId, name, token, setRenderEffect }) {
   const [isEdit, setIsEdit] = useState(false);
+  const [isComplete, setIsComplete] = useState(true);
   const {
     register,
     handleSubmit,
@@ -35,6 +36,7 @@ function ToDo({ id, userId, name, token, setRenderEffect }) {
     isEdit ? setIsEdit(false) : setIsEdit(true);
   };
 
+  // edit function
   const handleEdit = async (name) => {
     const payload = {
       userId,
@@ -56,6 +58,24 @@ function ToDo({ id, userId, name, token, setRenderEffect }) {
       console.log(error);
     }
   };
+
+  const handleCompleted = async () => {
+    console.log(isComplete);
+
+    try {
+      const res = await axios.patch(URL + `todo/${id}`, isComplete, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(res.data);
+      setRenderEffect(res.data.toDoList);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div className="flex w-full justify-between md:flex md:flex-row md:space-x-1 text-3xl ">
@@ -66,7 +86,25 @@ function ToDo({ id, userId, name, token, setRenderEffect }) {
           className="flex flex-row w-full items-center space-x-2"
         >
           {" "}
-          <IoIosRadioButtonOff className="hover:cursor-pointer" />
+          {isComplete ? (
+            <IoIosRadioButtonOff
+              className="hover:cursor-pointer"
+              onClick={() => {
+                isComplete ? setIsComplete(false) : setIsComplete(false);
+
+                handleCompleted();
+              }}
+            />
+          ) : (
+            <IoIosRadioButtonOn
+              className="hover:cursor-pointer"
+              onClick={() => {
+                isComplete ? setIsComplete(false) : setIsComplete(true);
+
+                handleCompleted();
+              }}
+            />
+          )}
           {isEdit ? (
             <input
               type="text"
