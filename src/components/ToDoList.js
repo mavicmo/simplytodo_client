@@ -11,12 +11,15 @@ function ToDoList({ token, userId, formToDoSubmit }) {
 
   const getListOfToDo = async () => {
     try {
-      const res = await axios.get(URL + `todo/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await axios.get(
+        URL + `todo/notCompleteListOfToDo/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       setListOfToDo(res.data.toDoList);
     } catch (error) {

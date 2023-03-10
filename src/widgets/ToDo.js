@@ -52,6 +52,7 @@ function ToDo({ id, userId, name, token, setRenderEffect }) {
       });
 
       setRenderEffect(res.data.toDoList);
+      // setIsComplete(res.data.toDo);
       setIsEdit(false);
       reset();
     } catch (error) {
@@ -59,16 +60,15 @@ function ToDo({ id, userId, name, token, setRenderEffect }) {
     }
   };
 
-  const handleCompleted = async () => {
-    console.log(isComplete);
+  const handleCompleted = async (completed) => {
+    console.log(completed);
+    let payload = { completed };
+
+    console.log(payload);
+    console.log(id);
 
     try {
-      const res = await axios.patch(URL + `todo/${id}`, isComplete, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await axios.put(URL + `todo/complete/${id}`, payload);
       console.log(res.data);
       setRenderEffect(res.data.toDoList);
     } catch (error) {
@@ -92,7 +92,7 @@ function ToDo({ id, userId, name, token, setRenderEffect }) {
               onClick={() => {
                 isComplete ? setIsComplete(false) : setIsComplete(false);
 
-                handleCompleted();
+                handleCompleted(isComplete);
               }}
             />
           ) : (
@@ -101,7 +101,7 @@ function ToDo({ id, userId, name, token, setRenderEffect }) {
               onClick={() => {
                 isComplete ? setIsComplete(false) : setIsComplete(true);
 
-                handleCompleted();
+                handleCompleted(isComplete);
               }}
             />
           )}
