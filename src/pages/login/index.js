@@ -3,9 +3,10 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const URL = process.env.SERVER_URL;
+const URL = process.env.REACT_APP_SERVER_URL || "http://localhost:3005";
 
 const Login = () => {
+  console.log(URL);
   const [isRegister, setIsRegister] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
   const [isEmailExist, setIsEmailExist] = useState(false);

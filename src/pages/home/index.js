@@ -17,7 +17,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 
 // URL for the backend
-const URL = process.env.SERVER_URL;
+const URL = process.env.REACT_APP_SERVER_URL || "http://localhost:3005";
 
 const HomePage = () => {
   const [isActive, setIsActive] = useState("toDo");
