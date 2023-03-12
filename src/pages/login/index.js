@@ -25,6 +25,7 @@ const Login = () => {
   });
 
   const formRegisterSubmit = async (data) => {
+    console.log(URL);
     try {
       await axios.post(URL + `users/register`, data);
       setIsRegistered(true);
