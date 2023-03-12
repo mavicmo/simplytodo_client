@@ -5,10 +5,13 @@ import { TbTrash } from "react-icons/tb";
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import { useForm } from "react-hook-form";
 
-const URL = "http://localhost:3005/";
-function ToDo({ id, userId, name, token, setRenderEffect }) {
+const URL = process.env.URL;
+function ToDo({ id, userId, name, token, setRenderEffect, complete }) {
+  console.log(complete);
   const [isEdit, setIsEdit] = useState(false);
-  const [isComplete, setIsComplete] = useState(true);
+  // const [isComplete, setIsComplete] = useState(complete);
+  let isComplete = complete;
+  console.log(isComplete);
   const {
     register,
     handleSubmit,
@@ -52,7 +55,7 @@ function ToDo({ id, userId, name, token, setRenderEffect }) {
       });
 
       setRenderEffect(res.data.toDoList);
-      // setIsComplete(res.data.toDo);
+      // setIsComplete(res.data.toDo.completed);
       setIsEdit(false);
       reset();
     } catch (error) {
@@ -60,17 +63,22 @@ function ToDo({ id, userId, name, token, setRenderEffect }) {
     }
   };
 
+  const onClickComplete = () => {
+    if (isComplete) {
+      isComplete = false;
+    } else if (!isComplete) {
+      isComplete = true;
+    }
+
+    handleCompleted(isComplete);
+  };
   const handleCompleted = async (completed) => {
-    console.log(completed);
     let payload = { completed };
 
-    console.log(payload);
-    console.log(id);
-
     try {
-      const res = await axios.put(URL + `todo/complete/${id}`, payload);
+      const res = await axios.put(URL + `todo/completeAToDo/${id}`, payload);
       console.log(res.data);
-      setRenderEffect(res.data.toDoList);
+      setRenderEffect(res.data.toDo);
     } catch (error) {
       console.log(error);
     }
@@ -86,23 +94,16 @@ function ToDo({ id, userId, name, token, setRenderEffect }) {
           className="flex flex-row w-full items-center space-x-2"
         >
           {" "}
+          {/* on = true and off = false */}
           {isComplete ? (
-            <IoIosRadioButtonOff
-              className="hover:cursor-pointer"
-              onClick={() => {
-                isComplete ? setIsComplete(false) : setIsComplete(false);
-
-                handleCompleted(isComplete);
-              }}
-            />
-          ) : (
             <IoIosRadioButtonOn
               className="hover:cursor-pointer"
-              onClick={() => {
-                isComplete ? setIsComplete(false) : setIsComplete(true);
-
-                handleCompleted(isComplete);
-              }}
+              onClick={onClickComplete}
+            />
+          ) : (
+            <IoIosRadioButtonOff
+              className="hover:cursor-pointer"
+              onClick={onClickComplete}
             />
           )}
           {isEdit ? (
