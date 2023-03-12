@@ -7,11 +7,10 @@ import { useForm } from "react-hook-form";
 
 const URL = process.env.REACT_APP_SERVER_URL || "http://localhost:3005";
 function ToDo({ id, userId, name, token, setRenderEffect, complete }) {
-  console.log(complete);
   const [isEdit, setIsEdit] = useState(false);
   // const [isComplete, setIsComplete] = useState(complete);
   let isComplete = complete;
-  console.log(isComplete);
+
   const {
     register,
     handleSubmit,
@@ -77,7 +76,7 @@ function ToDo({ id, userId, name, token, setRenderEffect, complete }) {
 
     try {
       const res = await axios.put(URL + `todo/completeAToDo/${id}`, payload);
-      console.log(res.data);
+
       setRenderEffect(res.data.toDo);
     } catch (error) {
       console.log(error);

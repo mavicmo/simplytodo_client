@@ -18,16 +18,11 @@ function ToDoList({ token, userId, formToDoSubmit, isActive }) {
     route = "/";
   }
   const getListOfToDo = async () => {
+    console.log(route);
     try {
-      const res = await axios.get(URL + `todo${route}/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await axios.get(URL + `todo${route}/${userId}`);
 
       setListOfToDo(res.data.toDoList);
-      console.log(res.data.toDoList);
     } catch (error) {
       console.log(error);
     }
