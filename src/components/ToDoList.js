@@ -3,7 +3,7 @@ import axios from "axios";
 import ToDo from "../widgets/ToDo";
 
 // URL for the backend
-const URL = process.env.URL;
+const URL = process.env.SERVER_URL;
 
 function ToDoList({ token, userId, formToDoSubmit, isActive }) {
   const [listOfToDo, setListOfToDo] = useState([]);

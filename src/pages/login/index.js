@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const URL = "http://localhost:3005/";
+const URL = process.env.SERVER_URL;
 
 const Login = () => {
   const [isRegister, setIsRegister] = useState(false);

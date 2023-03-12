@@ -5,7 +5,7 @@ import { TbTrash } from "react-icons/tb";
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import { useForm } from "react-hook-form";
 
-const URL = process.env.URL;
+const URL = process.env.SERVER_URL;
 function ToDo({ id, userId, name, token, setRenderEffect, complete }) {
   console.log(complete);
   const [isEdit, setIsEdit] = useState(false);
