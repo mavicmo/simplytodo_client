@@ -6,7 +6,6 @@ import axios from "axios";
 const URL = process.env.REACT_APP_SERVER_URL || "http://localhost:3005";
 
 const Login = () => {
-  console.log(URL);
   const [isRegister, setIsRegister] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
   const [isEmailExist, setIsEmailExist] = useState(false);
@@ -26,7 +25,6 @@ const Login = () => {
   });
 
   const formRegisterSubmit = async (data) => {
-    console.log(URL);
     try {
       await axios.post(URL + `users/register`, data);
       setIsRegistered(true);
@@ -150,7 +148,7 @@ const Login = () => {
                     placeholder={
                       errors.password
                         ? `${errors.password?.message}`
-                        : `Enter your password name`
+                        : `Enter your password`
                     }
                   />
                   <p className="text-red-500 font-bold ml-2">
@@ -266,7 +264,7 @@ const Login = () => {
                     placeholder={
                       errors.password
                         ? `${errors.password?.message}`
-                        : `Enter your password name`
+                        : `Enter your password`
                     }
                   />
                   {/* Border */}
